@@ -89,9 +89,9 @@ apiApp.controller('apiCtrl', function($scope) {
     var lastWeek = new Date(
       stats_lastYearCommitActivity[stats_lastYearCommitActivity.length - 1].week * 1000
     );
-    for (i = 7; i > 0; i--) {
+    for (i = 0; i < 7; i++) {
       var date = new Date();
-      date.setDate(lastWeek.getDate() - i);
+      date.setDate(lastWeek.getDate() + i);
       labels.push(date.toDateString());
     }
 
