@@ -2,8 +2,9 @@
 
 */
 
-var apiApp = angular.module('apiApp', ['chart.js']);
+var oauthToken = "63097082841fc963e010e43b36918f45a9419d65";
 
+var apiApp = angular.module('apiApp', ['chart.js']);
 
 apiApp.controller('apiCtrl', function($scope) {
   $scope.user = [];
@@ -100,12 +101,6 @@ apiApp.controller('apiCtrl', function($scope) {
       stats_lastYearCommitActivity[stats_lastYearCommitActivity.length - 1].days
     );
     $scope.stats_lastWeekCommitActivity_series = ["Commit"];
-
-    // debug
-    console.log($scope.stats_lastWeekCommitActivity_labels);
-    console.log(stats_lastYearCommitActivity[stats_lastYearCommitActivity.length - 1]);
-    console.log($scope.stats_lastWeekCommitActivity_data);
-    console.log($scope.stats_lastWeekCommitActivity_series);
   };
 
   // debug purpose
@@ -124,6 +119,9 @@ function requests(apiurl) {
   var result = null;
   $.ajax({
         url: apiurl,
+        beforeSend : function(xhr) {
+          xhr.setRequestHeader("Authorization", "token " + oauthToken);
+        },
         type: 'get',
         async: false,
         success: function(data) {
