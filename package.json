@@ -1,0 +1,32 @@
+{
+  "name": "tweb-github-api-project",
+  "version": "0.0.1",
+  "description": "Github API Project",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xajkep/tweb-angularjs-socketio.git"
+  },
+  "dependencies": {
+    "angular-chart.js": "^0.8.5",
+    "express": "^4.13.3"
+  },
+  "keywords": [
+    "tweb",
+    "angular",
+    "js",
+    "node",
+    "heig",
+    "github",
+    "api"
+  ],
+  "author": "Benoît Zuckschwerdt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xajkep/tweb-github-api-project/issues"
+  }
+}

@@ -1,0 +1,142 @@
+<html ng-app="apiApp">
+<head>
+  <title>Github API Project</title>
+
+  <!-- Librairies javascript -->
+  <script src="/js/angular.min.js"></script>
+  <script src="/js/Chart.min.js"></script>
+  <script src="/js/angular-chart.min.js"></script>
+  <script src="/js/angular-ui-router.min.js"></script>
+  <script src="/js/jquery.min.js"></script>
+
+  <script src="/ctrl/api.js"></script>
+
+  <!-- Feuille de style pour les graphiques -->
+  <link rel="stylesheet" href="/css/angular-chart.min.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body ng-controller="apiCtrl">
+
+<div class="container">
+  <h1>Github API Project</h1>
+  <br/>
+  <input id="username" type="text" name="username" placeholder="Github username" ng-model="username" />
+  <button id="btnUsername" class="btn btn-primary" type="button" ng-click="user()">ok</button>
+  <hr/>
+
+  <div class="row">
+    <h2>Personal informations</h2>
+    <div class="col-md-6">
+      <img src="{{user.avatar_url}}" />
+    </div>
+
+    <div class="col-md-6">
+      <table class="table table-bordered table-striped">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <td>{{user.name}}</td>
+          </tr>
+          <tr>
+            <th>Link to profile</th>
+            <td>
+              <a href="{{user.html_url}}">{{user.html_url}}</a>
+            </td>
+          </tr>
+          <tr>
+            <th>Company</th>
+            <td>{{user.compagny}}</td>
+          </tr>
+          <tr>
+            <th>Blog</th>
+            <td>
+              <a href="{{user.blog}}">{{user.blog}}</a>
+            </td>
+          </tr>
+          <tr>
+            <th>Location</th>
+            <td>{{user.location}}</td>
+          </tr>
+          <tr>
+            <th>Public repos</th>
+            <td>{{user.public_repos}}</td>
+          </tr>
+          <tr>
+            <th>Followers</th>
+            <td>{{user.followers}}</td>
+          </tr>
+          <tr>
+            <th>Following</th>
+            <td>{{user.following}}</td>
+          </tr>
+          <tr>
+            <th>Created at</th>
+            <td>{{user.created_at}}</td>
+          </tr>
+          <tr>
+            <th>Updated at</th>
+            <td>{{user.updated_at}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<div>
+  <h2>Public repositories</h2>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Repo</th>
+        <th>Is a fork</th>
+        <th>Watchers_count</th>
+        <th>Forks count</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="repo in repos">
+        <td>
+          <a href="{{repo.html_url}}">
+            {{repo.name}}
+          </a>
+        </td>
+        <td>{{repo.fork}}</td>
+        <td>{{repo.watchers_count}}</td>
+        <td>{{repo.forks_count}}</td>
+        <td>
+          <button type="button" class="btn btn-info btn-sm" ng-click="stats(repo.name)">
+            Load stats
+          </button>
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+
+<div>
+  <h2>Stats</h2>
+  <div>
+    <h3>Additions & deletions per week</h3>
+    <canvas id="line" class="chart chart-line"
+    chart-data="stats_addDelPerWeek_data" chart-labels="stats_addDelPerWeek_labels">
+    </canvas>
+
+    <h3>Weekly commit count (10 last week)</h3>
+    <canvas id="bar" class="chart chart-bar"
+    chart-data="stats_weeklyCommitCount_data"
+    chart-labels="stats_weeklyCommitCount_labels"
+    chart-series="stats_weeklyCommitCount_series">
+    </canvas>
+
+    <h3>Last week commit activity</h3>
+    <canvas id="bar" class="chart chart-bar"
+    chart-data="stats_lastWeekCommitActivity_data"
+    chart-labels="stats_lastWeekCommitActivity_labels"
+    chart-series="stats_lastWeekCommitActivity_series">
+    </canvas>
+  </div>
+</div>
+
+</body>
+</html>
