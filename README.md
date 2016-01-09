@@ -116,6 +116,11 @@ $scope.maVariable = "bonjour";
 
 L'authentification se fait via un jeton OAuth généré sur Github ([https://github.com/settings/tokens](https://github.com/settings/tokens))
 
+Ce jeton est passé dans le header HTTP, comme ceci:
+~~~
+Authorization: token a90dc0cd257b523adca07df4cb93cd0c8a265ef6
+~~~
+
 ![](img/ss_jeton.png)
 
 Pour éviter que ce jeton permette d'accéder à des données privées ou bien de modifier des données de l'utilisateur, on prend soin de retirer tous les droits, de cette manière l'utilisation de ce jeton ne fait qu'utiliser notre identité. Notons tout de même que cela permet à tout le monde d'utiliser notre *rate limit* qui est la limite d'appels à l'API pour les utilisateur authentifié.
@@ -145,4 +150,4 @@ Une requête qui fonctionne retournera un status *200 OK*, comme on peut le voir
 * [Github API Documentation](https://developer.github.com/v3/)
 * [Angular Chart Documentation](http://jtblin.github.io/angular-chart.js/)
 * [jQuery Documentation](https://api.jquery.com/)
-* [](http://www.w3schools.com/)
+* [w3schools, Documentation pour le développement Web](http://www.w3schools.com/)
