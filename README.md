@@ -8,7 +8,7 @@ Mettre en place une application utilisant Angular qui intéragit avec l'API de G
 
 * S'authentifier sur l'API de Github via OAuth
 * Retrouver les informations personnelles d'un utilisateur Github
-* Retrouver les repos publiques de l'utilisateurs en question
+* Retrouver les repos publiques de l'utilisateur en question
 * Afficher plusieurs statistiques d'un repo avec ChartJS
   * Nombre d'ajouts et de suppressions par semaine (line chart)
   * Nombre de commit durant les dix dernières semaines (bar chart)
@@ -23,24 +23,22 @@ Mettre en place une application utilisant Angular qui intéragit avec l'API de G
 * ChartJS
 * Express
 
-## Mise en place
-
-### Structure
+## Structure
 
 * public (contenu destiné au client)
   * css (feuilles de style angular-chart et bootstrap)
   * ctrl (controlleur angular)
-  * js (librairie angular, ChartJS et jQuery)
+  * js (librairies angular, ChartJS et jQuery)
 * main.js (code principal du serveur)
 * index.html (vue principale)
 
-### Node.js (server-side)
+## Node.js (server-side)
 
 Node.js écoute sur le port 1337 et initialise Express qui permet de rendre le dossier *public* et son contenu accessible au client.
 
 Node.js fournit également au client la page *index.html* qui est chargé lorsque la racine */* est atteinte.
 
-### Appels de l'API (client-side)
+## Appels de l'API (client-side)
 
 Depuis la vue principale l'on peut entrer le nom d'utilisateur voulu, ici *xajkep*:
 
@@ -48,13 +46,13 @@ Depuis la vue principale l'on peut entrer le nom d'utilisateur voulu, ici *xajke
 
 Ensuite deux premières requêtes sont effectuée auprès de l'API.
 
-#### Récupération des données utilisateurs: GET /users/:username
+### Récupération des données utilisateurs: GET /users/:username
 
 *[Documentation](https://developer.github.com/v3/users/)*
 
 Cette requête permet de retrouver l'url de l'avatar et les informations contenu dans le tableau de droite.
 
-#### Récupération des repos publiques de l'utilisateur: GET /repos/:owner/:repo
+### Récupération des repos publiques de l'utilisateur: GET /repos/:owner/:repo
 
 *[Documentation](https://developer.github.com/v3/repos/#get)*
 
@@ -63,13 +61,13 @@ Cette requête permet de retrouver tous les repos publiques de l'utilisateur.
 
 ![](img/ss_repos.png)
 
-A noter que si le token d'authentification utilisé possédait les droits de lecture sur les repo privés, ceux-ci figureraient également dans ce tableau.
+À noter que si le jeton d'authentification utilisé possédait les droits de lecture sur les repo privés, ceux-ci figureraient également dans ce tableau.
 
-#### Chargement des statistiques d'un repo
+### Chargement des statistiques d'un repo
 
 *[Documentation](https://developer.github.com/v3/repos/statistics/)*
 
-L'on peut charger les statistiques d'un repo en utilisant le bouton "Load stats". Les requêtes utilisées pour récupérer les statistiques du repo sont les suivante (dans l'ordre d'affichage des graphiques):
+On peut charger les statistiques d'un repo en utilisant le bouton "Load stats". Les requêtes utilisées pour récupérer les statistiques du repo sont les suivantes (dans l'ordre d'affichage des graphiques):
 * GET /repos/:owner/:repo/stats/code_frequency
 * GET /repos/:owner/:repo/stats/participation
 * GET /repos/:owner/:repo/stats/commit_activity
@@ -80,7 +78,7 @@ Il a bien entendu été nécessaire de modifier les données reçues avant de le
 ![](img/ss_stats_2.png)
 ![](img/ss_stats_3.png)
 
-### jQuery (client-side)
+## jQuery (client-side)
 
 jQuery est utilisé pour simplifier et rendre plus concis certaines parties du code. En l'occurrence ici pour effectuer les appels à l'API c'est la méthode jQuery *$.ajax* qui est utilisée.
 
@@ -90,11 +88,11 @@ Bootstrap est un framework HTML, CSS et JS pour développer des applications Web
 
 ## Angular (client-side)
 
-Angular permet de gérer les données affichée sur la page avec un système vue/controlleur. La vue étant la page *index.html* et le controlleur étant le fichier *js/ctrl/api.js*.
+Angular permet de gérer les données affichées sur la page avec un système vue/controlleur. La vue étant la page *index.html* et le controlleur étant le fichier *js/ctrl/api.js*.
 
 La vue intérargit avec le controlleur grâce aux fonctions Angular déclarées dans le controlleur et aux diréctives Angular présentent dans la vue (attributs *ng-**).
 
-Les deux fonctions Angular déclarée sont *user( )* et *stats( reponame )*, la première permet d'obtenir les informations de l'utilisateur et ses repos publiques. La seconde quant à elle effectue les trois requêtes des statistiques présentées plus haut et manipule les données reçues pour fournir à Chart.js les champs *labels*, *series* et *data* nécessaire au bonne affichage des graphique.
+Les deux fonctions Angular déclarée sont *user( )* et *stats( reponame )*, la première permet d'obtenir les informations de l'utilisateur et ses repos publiques. La seconde quant à elle effectue les trois requêtes de statistiques présentées plus haut et manipule les données reçues pour fournir à Chart.js les champs *labels*, *series* et *data* nécessaire au bon affichage des graphiques.
 
 Une fois les données prêtent elles sont attribuées à des sous-variables de *$scope* permettant ainsi à la vue de charger les valeurs via l'utilisation de doubles crochet, example:
 
