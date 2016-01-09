@@ -88,7 +88,7 @@ jQuery est utilisé pour simplifier et rendre plus concis certaines parties du c
 
 Bootstrap est un framework HTML, CSS et JS pour développer des applications Web. Il est utilisé dans ce projet pour la mise en forme de la page principale.
 
-## Angular
+## Angular (client-side)
 
 Angular permet de gérer les données affichée sur la page avec un système vue/controlleur. La vue étant la page *index.html* et le controlleur étant le fichier *js/ctrl/api.js*.
 
@@ -112,6 +112,13 @@ $scope.maVariable = "bonjour";
 ...
 ~~~
 
+## Authentification (client-side)
+
+L'authentification se fait via un jeton OAuth généré sur Github ([https://github.com/settings/tokens](https://github.com/settings/tokens))
+
+![](img/ss_jeton.png)
+
+Pour éviter que ce jeton permette d'accéder à des données privées ou bien de modifier des données de l'utilisateur, on prend soin de retirer tous les droits, de cette manière l'utilisation de ce jeton ne fait qu'utiliser notre identité. Notons tout de même que cela permet à tout le monde d'utiliser notre *rate limit* qui est la limite d'appels à l'API pour les utilisateur authentifié.
 
 ## Deploiement sur Heroku
 
@@ -138,3 +145,4 @@ Une requête qui fonctionne retournera un status *200 OK*, comme on peut le voir
 * [Github API Documentation](https://developer.github.com/v3/)
 * [Angular Chart Documentation](http://jtblin.github.io/angular-chart.js/)
 * [jQuery Documentation](https://api.jquery.com/)
+* [](http://www.w3schools.com/)
