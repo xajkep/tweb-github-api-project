@@ -1,7 +1,16 @@
 /**
+ * Angular.js github api controller
+ *
+ * @author  Benoit Zuckschwerdt
+ * @date    2015-01-07
+ *
+ * Features:
+ *  + Make API calls
+ *  + Prepare data for the view and the charts
+ *  + Update view via $scope
+ */
 
-*/
-
+// Authentification token for the Github API
 var oauthToken = "63097082841fc963e010e43b36918f45a9419d65";
 
 var apiApp = angular.module('apiApp', ['chart.js']);
@@ -9,7 +18,6 @@ var apiApp = angular.module('apiApp', ['chart.js']);
 apiApp.controller('apiCtrl', function($scope) {
   $scope.user = [];
   $scope.repos = [];
-
   $scope.stats_addDelPerWeek = [];
 
   $scope.user = function() {
@@ -20,17 +28,9 @@ apiApp.controller('apiCtrl', function($scope) {
     // Beautify the dates
     $scope.user.created_at = $scope.user.created_at.replace('T', ' ').replace('Z', '');
     $scope.user.updated_at = $scope.user.updated_at.replace('T', ' ').replace('Z', '');
-
-    //alert($scope.user.avatar_url);
-
-    /*$scope.$apply(function() {
-      $scope.user = getUser($scope.username);
-    });*/
   };
 
   $scope.stats = function(reponame) {
-    //$scope.stats_contributors  = getStatsContributors($scope.username, reponame);
-
     // Get additions & deletions stats per week
     stats_addDelPerWeek  = getAddDelPerWeek($scope.username, reponame);
 
@@ -102,12 +102,6 @@ apiApp.controller('apiCtrl', function($scope) {
     );
     $scope.stats_lastWeekCommitActivity_series = ["Commit"];
   };
-
-  // debug purpose
-  $scope.$watch('username', function() {
-      console.log($scope.username);
-  });
-
 });
 
 /**
@@ -131,26 +125,60 @@ function requests(apiurl) {
   return result;
 }
 
+/**
+ * Get user informations
+ * @param username
+ * @return json object
+ *
+ * @documentation https://developer.github.com/v3/users/
+ */
 function getUser(username) {
   return requests("https://api.github.com/users/"+username);
 }
 
+/**
+ * Get user repositories
+ * @param username
+ * @return json object
+ *
+ * @documentation https://developer.github.com/v3/repos/#get
+ */
 function getAllRepos(username) {
   return requests("https://api.github.com/users/"+username+"/repos");
 }
 
-function getStatsContributors(username, reponame) {
-  return requests("https://api.github.com/repos/"+username+"/"+reponame+"/stats/contributors");
-}
-
+/**
+ * Get repository stats (additions & deletions per week)
+ * @param repository owner
+ * @param repository name
+ * @return json object
+ *
+ * @documentation https://developer.github.com/v3/repos/statistics/
+ */
 function getAddDelPerWeek(username, reponame) {
   return requests("https://api.github.com/repos/"+username+"/"+reponame+"/stats/code_frequency");
 }
 
+/**
+ * Get repository stats (weekly commit count)
+ * @param repository owner
+ * @param repository name
+ * @return json object
+ *
+ * @documentation https://developer.github.com/v3/repos/statistics/
+ */
 function getWeeklyCommitCount(username, reponame) {
   return requests("https://api.github.com/repos/"+username+"/"+reponame+"/stats/participation");
 }
 
+/**
+ * Get repository stats (last year commit activity)
+ * @param repository owner
+ * @param repository name
+ * @return json object
+ *
+ * @documentation https://developer.github.com/v3/repos/statistics/
+ */
 function getLastYearCommitActivity(username, reponame) {
   return requests("https://api.github.com/repos/"+username+"/"+reponame+"/stats/commit_activity");
 }
