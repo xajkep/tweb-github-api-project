@@ -70,8 +70,8 @@ apiApp.controller('apiCtrl', function($scope) {
       date.setDate(now.getDate() - i*7);
       labels.push(date.toDateString());
 
-      all.push(stats_weeklyCommitCount.all[41+i]);
-      owner.push(stats_weeklyCommitCount.owner[41+i]);
+      all.push(stats_weeklyCommitCount.all[52-i]);
+      owner.push(stats_weeklyCommitCount.owner[52-i]);
     }
 
     $scope.stats_weeklyCommitCount_labels = labels;
@@ -79,6 +79,10 @@ apiApp.controller('apiCtrl', function($scope) {
     $scope.stats_weeklyCommitCount_data = [];
     $scope.stats_weeklyCommitCount_data.push(all);
     $scope.stats_weeklyCommitCount_data.push(owner);
+
+    // debug
+    console.log(stats_weeklyCommitCount.all);
+    console.log($scope.stats_weeklyCommitCount_data);
 
 
     // Get last year of commit activity
