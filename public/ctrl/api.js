@@ -62,13 +62,12 @@ apiApp.controller('apiCtrl', function($scope) {
 
     // Prepare labels, data & series for the bar chart
     var labels = [];
-    var now = new Date();
     var all = [];
     var owner = [];
     for (i = 10; i > 0; i--) {
-      var date = new Date();
-      date.setDate(now.getDate() - i*7);
-      labels.push(date.toDateString());
+      // Recover dates from additions & deletions stats
+      // in order to have Sunday date
+      labels.push($scope.stats_addDelPerWeek_labels[$scope.stats_addDelPerWeek_labels.length - i]);
 
       all.push(stats_weeklyCommitCount.all[52-i]);
       owner.push(stats_weeklyCommitCount.owner[52-i]);
